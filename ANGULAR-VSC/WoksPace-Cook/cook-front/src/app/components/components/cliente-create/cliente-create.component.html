@@ -1,0 +1,16 @@
+<div class="container">
+    <h2>Crear Cliente</h2>
+    <form (ngSubmit)="onSubmit()" #clienteForm="ngForm">
+      <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput [(ngModel)]="cliente.nombre" name="nombre" required>
+        </mat-form-field>
+      </div>
+      
+      <button mat-raised-button color="primary" type="submit" [disabled]="!clienteForm.form.valid">
+        Guardar
+      </button>
+      <button mat-button routerLink="/clientes">Cancelar</button>
+    </form>
+  </div>

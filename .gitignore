@@ -1,0 +1,6 @@
+node_modules/
+SPRING-VSC/
+SQL-VSC/
+.angular/
+dist/
+.vscode/
