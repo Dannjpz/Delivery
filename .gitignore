@@ -1,6 +1,27 @@
-node_modules/
-SPRING-VSC/
-SQL-VSC/
-.angular/
-dist/
+# Angular
+ANGULAR-VSC/.angular/
+ANGULAR-VSC/node_modules/
+ANGULAR-VSC/dist/
+ANGULAR-VSC/.vscode/
+ANGULAR-VSC/.editorconfig
+ANGULAR-VSC/*.log
+
+# Spring
+SPRING-VSC/target/
+SPRING-VSC/.mvn/
+SPRING-VSC/.vscode/
+SPRING-VSC/mvnw
+SPRING-VSC/mvnw.cmd
+SPRING-VSC/HELP.md
+
+# IDE - VSCode
 .vscode/
+*.code-workspace
+
+# Logs y archivos temporales
+*.log
+*.tmp
+
+# Sistema operativo
+.DS_Store
+Thumbs.db

@@ -1,0 +1,14 @@
+-- Crear el nuevo usuario
+CREATE USER DannJpz IDENTIFIED BY "5015";
+
+-- Otorgar permisos básicos necesarios
+GRANT CREATE SESSION TO DannJpz;
+GRANT CREATE TABLE TO DannJpz;
+GRANT CREATE SEQUENCE TO DannJpz;
+GRANT CREATE VIEW TO DannJpz;
+GRANT CREATE PROCEDURE TO DannJpz;
+GRANT CONNECT TO DannJpz;
+GRANT RESOURCE TO DannJpz;
+
+-- Asignar espacio en el tablespace
+ALTER USER DannJpz QUOTA UNLIMITED ON USERS;
