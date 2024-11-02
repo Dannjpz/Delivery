@@ -1,10 +1,10 @@
 # Angular
-ANGULAR-VSC/.angular/
-ANGULAR-VSC/node_modules/
-ANGULAR-VSC/dist/
-ANGULAR-VSC/.vscode/
-ANGULAR-VSC/.editorconfig
-ANGULAR-VSC/*.log
+ANGULAR-VSC/WoksPace-Cook/cook-front/node_modules/
+ANGULAR-VSC/WoksPace-Cook/cook-front/.angular/
+ANGULAR-VSC/WoksPace-Cook/cook-front/dist/
+ANGULAR-VSC/WoksPace-Cook/cook-front/.vscode/
+ANGULAR-VSC/WoksPace-Cook/cook-front/.editorconfig
+ANGULAR-VSC/WoksPace-Cook/cook-front/*.log
 
 # Spring
 SPRING-VSC/target/
