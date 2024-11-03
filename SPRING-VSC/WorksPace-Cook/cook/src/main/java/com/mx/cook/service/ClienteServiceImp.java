@@ -13,35 +13,35 @@ import com.mx.cook.modelo.Cliente;
 public class ClienteServiceImp implements ClienteService {
 
     @Autowired
-    ClienteDao dao;
+    ClienteDao clienteDao;
 
     @Override
     public List<Cliente> listar() {
 
-        return dao.findAll(Sort.by(Sort.Direction.ASC, "idCliente"));
+        return clienteDao.findAll(Sort.by(Sort.Direction.ASC, "idCliente"));
 
     }
 
     @Override
     public Cliente buscar(Cliente cliente) {
 
-        return dao.findById(cliente.getIdCliente()).orElse(null);
+        return clienteDao.findById(cliente.getIdCliente()).orElse(null);
 
     }
 
     @Override
     public void editar(Cliente cliente) {
-        dao.save(cliente);
+        clienteDao.save(cliente);
     }
 
     @Override
     public void guardar(Cliente cliente) {
-        dao.save(cliente);
+        clienteDao.save(cliente);
     }
 
     @Override
     public void eliminar(Cliente cliente) {
-        dao.delete(cliente);
+        clienteDao.delete(cliente);
     }
 
 }

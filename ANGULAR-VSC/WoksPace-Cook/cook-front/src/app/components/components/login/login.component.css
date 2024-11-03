@@ -7,22 +7,18 @@
 }
 
 mat-card {
+  width: 100%;
   max-width: 400px;
-  width: 90%;
   padding: 20px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-mat-form-field {
+.full-width {
   width: 100%;
+  margin-bottom: 15px;
 }
 
-button {
-  align-self: center;
-  width: 200px;
+.error-message {
+  color: #f44336;
+  margin-bottom: 15px;
+  text-align: center;
 }

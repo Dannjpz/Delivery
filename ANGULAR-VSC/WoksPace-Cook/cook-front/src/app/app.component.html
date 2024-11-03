@@ -4,12 +4,20 @@
     <button mat-icon-button [routerLink]="['/']">
       <mat-icon>home</mat-icon>
     </button>
-    <span>Sistema de Gestión de Clientes</span>
+    <span>{{title}}</span>
     <span class="toolbar-spacer"></span>
-    <button mat-button [routerLink]="['/clientes']">
-      <mat-icon>people</mat-icon>
-      Clientes
-    </button>
+    
+    <!-- Mostrar solo si está autenticado -->
+    <ng-container *ngIf="isAuthenticated()">
+      <button mat-button [routerLink]="['/clientes']">
+        <mat-icon>people</mat-icon>
+        Clientes
+      </button>
+      <button mat-button (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        Salir
+      </button>
+    </ng-container>
   </mat-toolbar>
 
   <!-- Main Content -->

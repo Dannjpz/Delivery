@@ -1,40 +1,42 @@
 .app-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  .app-toolbar {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0,0,0,.2);
-  }
-  
-  .toolbar-spacer {
-    flex: 1 1 auto;
-  }
-  
-  .content-container {
-    flex: 1;
-    padding: 20px;
-    background-color: #f5f5f5;
-  }
-  
-  .app-footer {
-    padding: 16px;
-    text-align: center;
-    background-color: #f5f5f5;
-  }
-  
-  .app-footer p {
-    margin: 8px 0;
-    color: #666;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 600px) {
-    .content-container {
-      padding: 10px;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,.2);
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.content-container {
+  flex: 1;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.app-footer {
+  padding: 16px;
+  text-align: center;
+  background-color: #f5f5f5;
+}
+
+.app-footer p {
+  margin: 8px 0;
+  color: #666;
+}
+
+/* Botones de la toolbar */
+.mat-toolbar button {
+  margin-left: 8px;
+}
+
+button mat-icon {
+  margin-right: 4px;
+}

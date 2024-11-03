@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -18,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ClienteListComponent } from './components/components/cliente-list/cliente-list.component';
 import { ClienteCreateComponent } from './components/components/cliente-create/cliente-create.component';
 import { ClienteEditComponent } from './components/components/cliente-edit/cliente-edit.component';
+import { LoginComponent } from './components/components/login/login.component';
 
 // Components
 
@@ -26,11 +25,11 @@ import { ClienteEditComponent } from './components/components/cliente-edit/clien
         AppComponent,
         ClienteListComponent,
         ClienteCreateComponent,
-        ClienteEditComponent
+        ClienteEditComponent,
+        LoginComponent
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule,
         FormsModule,
         BrowserAnimationsModule,
         MatToolbarModule,
@@ -41,9 +40,7 @@ import { ClienteEditComponent } from './components/components/cliente-edit/clien
         MatIconModule,
         MatCardModule,
     ],
-    providers: [
-        provideHttpClient()
-    ],
+    providers: [], // Ya no necesitas incluir el HTTP_INTERCEPTORS aquí
     bootstrap: [AppComponent]
 })
 export class AppModule { }

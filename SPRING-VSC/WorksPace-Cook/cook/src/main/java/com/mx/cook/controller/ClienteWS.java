@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mx.cook.dao.ClienteDao;
 import com.mx.cook.modelo.Cliente;
 import com.mx.cook.service.ClienteService;
 import com.mx.cook.service.ClienteServiceImp;
@@ -21,34 +22,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ClienteWS {
 
     @Autowired
-    ClienteService service;
+    ClienteService clienteService;
 
     @Autowired
-    ClienteServiceImp imp;
+    ClienteServiceImp clienteServiceImp;
+
+    @Autowired
+    ClienteDao clienteDao;
 
     @GetMapping("listar")
     public List<Cliente> listarCliente() {
-        return service.listar();
+        return clienteService.listar();
     }
 
     @PostMapping("buscar")
     public Cliente buscarCliente(@RequestBody Cliente cliente) {
-        return service.buscar(cliente);
+        return clienteService.buscar(cliente);
     }
 
     @PostMapping("guardar")
     public void guardarCliente(@RequestBody Cliente cliente) {
-        service.guardar(cliente);
+        clienteService.guardar(cliente);
     }
 
     @PostMapping("editar")
     public void editarCliente(@RequestBody Cliente cliente) {
-        service.editar(cliente);
+        clienteService.editar(cliente);
     }
 
     @PostMapping("eliminar")
     public void eliminarCliente(@RequestBody Cliente cliente) {
-        service.eliminar(cliente);
+        clienteService.eliminar(cliente);
     }
 
 }
