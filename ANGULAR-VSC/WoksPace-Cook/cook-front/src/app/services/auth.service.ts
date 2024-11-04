@@ -14,7 +14,7 @@ export class AuthService {
     private sessionCheckInterval: any;
     private idleTimeout: any;
     private readonly isBrowser: boolean;
-    private readonly IDLE_TIME = 10 * 1000; // 5 minutos de inactividad (ajusta según necesites) 10s
+    private readonly IDLE_TIME = 5 * 10 * 1000; // 5 minutos de inactividad (ajusta según necesites)
 
     constructor(
         private readonly http: HttpClient,
