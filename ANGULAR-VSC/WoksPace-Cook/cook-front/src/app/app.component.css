@@ -40,3 +40,14 @@
 button mat-icon {
   margin-right: 4px;
 }
+
+/* Indicadores de conectividad */
+.online-indicator {
+  color: #4CAF50;
+  margin-right: 10px;
+}
+
+.offline-indicator {
+  color: #f44336;
+  margin-right: 10px;
+}

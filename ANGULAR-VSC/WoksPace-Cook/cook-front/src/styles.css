@@ -45,3 +45,13 @@ body {
 .mat-raised-button+.mat-raised-button {
     margin-left: 8px;
 }
+
+.success-snackbar {
+    background: #4CAF50;
+    color: white;
+}
+
+.error-snackbar {
+    background: #f44336;
+    color: white;
+}

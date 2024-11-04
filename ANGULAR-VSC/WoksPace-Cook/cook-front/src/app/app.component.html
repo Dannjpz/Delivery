@@ -7,6 +7,11 @@
     <span>{{title}}</span>
     <span class="toolbar-spacer"></span>
     
+    <!-- Indicador de conectividad -->
+    <mat-icon [class.online-indicator]="isOnline" [class.offline-indicator]="!isOnline">
+      {{isOnline ? 'wifi' : 'wifi_off'}}
+    </mat-icon>
+
     <!-- Mostrar solo si está autenticado -->
     <ng-container *ngIf="isAuthenticated()">
       <button mat-button [routerLink]="['/clientes']">
