@@ -13,22 +13,22 @@ export class ClienteService {
   constructor(private readonly http: HttpClient) { }
 
   getClientes(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(`${this.apiUrl}/listar`);
+    return this.http.get<Cliente[]>(`${this.apiUrl}/listarCliente`);
   }
 
   buscarCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(`${this.apiUrl}/buscar`, cliente);
+    return this.http.post<Cliente>(`${this.apiUrl}/buscarCliente`, cliente);
   }
 
   createCliente(cliente: Cliente): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/guardar`, cliente);
+    return this.http.post<void>(`${this.apiUrl}/guardarCliente`, cliente);
   }
 
   updateCliente(cliente: Cliente): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/editar`, cliente);
+    return this.http.post<void>(`${this.apiUrl}/editarCliente`, cliente);
   }
 
   deleteCliente(cliente: Cliente): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/eliminar`, cliente);
+    return this.http.post<void>(`${this.apiUrl}/eliminarCliente`, cliente);
   }
 }

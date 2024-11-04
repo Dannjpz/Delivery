@@ -1,6 +1,6 @@
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { AuthResponse, LoginRequest } from '../models/auth';
 import { StorageService } from './storage.service';
 import { Router } from '@angular/router';
@@ -9,12 +9,14 @@ import { isPlatformBrowser } from '@angular/common';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
     private readonly baseUrl = 'http://localhost:8081/api/auth';
     private sessionCheckInterval: any;
     private idleTimeout: any;
     private readonly isBrowser: boolean;
-    private readonly IDLE_TIME = 5 * 10 * 1000; // 5 minutos de inactividad (ajusta según necesites)
+    private readonly IDLE_TIME = 5 * 60 * 1000; // 5 minutos de inactividad
+    private readonly destroy$ = new Subject<void>();
+    private redirectUrl: string = '/menu';
 
     constructor(
         private readonly http: HttpClient,
@@ -27,6 +29,12 @@ export class AuthService {
             this.setupWindowEvents();
             this.setupIdleTimer();
         }
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+        this.destroySession();
     }
 
     private initSessionCheck(): void {
@@ -109,21 +117,32 @@ export class AuthService {
                         this.storageService.setItem('token', response.token);
                         this.storageService.setItem('sessionStartTime', Date.now().toString());
                         this.initSessionCheck();
-                        this.setupIdleTimer(); // Reiniciar el temporizador de inactividad
+                        this.setupIdleTimer();
+                        // Usar la URL de redirección guardada
+                        this.router.navigate([this.redirectUrl]);
                     }
                 })
             );
     }
 
+    setRedirectUrl(url: string): void {
+        this.redirectUrl = url;
+    }
+
+    getRedirectUrl(): string {
+        return this.redirectUrl;
+    }
+
+
     logout(): void {
         if (this.idleTimeout) {
             clearTimeout(this.idleTimeout);
         }
-        this.storageService.removeItem('token');
-        this.storageService.removeItem('sessionStartTime');
         if (this.sessionCheckInterval) {
             clearInterval(this.sessionCheckInterval);
         }
+        this.storageService.removeItem('token');
+        this.storageService.removeItem('sessionStartTime');
         this.router.navigate(['/login']);
     }
 
@@ -162,6 +181,7 @@ export class AuthService {
         if (this.idleTimeout) {
             clearTimeout(this.idleTimeout);
         }
-        this.logout();
+        this.storageService.removeItem('token');
+        this.storageService.removeItem('sessionStartTime');
     }
 }

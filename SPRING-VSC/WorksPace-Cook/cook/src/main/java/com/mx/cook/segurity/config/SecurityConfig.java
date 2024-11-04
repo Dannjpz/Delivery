@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -37,9 +38,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable()).cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/api/auth/**", "/error", "/v3/api-docs/**", "/swagger-ui/**")
-                                .permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth
+                        // Rutas públicas
+                        .requestMatchers("/api/auth/**").permitAll().requestMatchers("/error").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll().requestMatchers("/swagger-ui/**").permitAll()
+
+                        // Configuración de productos
+                        .requestMatchers(HttpMethod.GET, "/api/productos/listar").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/productos/categoria/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/productos/disponibles").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/productos/buscar/**").permitAll()
+                        // .requestMatchers(HttpMethod.PUT, "/api/productos/editar").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/productos/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/productos/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/productos/**").authenticated()
+
+                        // Cualquier otra ruta requiere autenticación
+                        .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class).build();

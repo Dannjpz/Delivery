@@ -1,0 +1,52 @@
+<div class="container mx-auto p-4">
+    <!-- Loading indicator -->
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+    <!-- Error message -->
+    <div *ngIf="error" class="error-message">
+        {{error}}
+    </div>
+
+    <!-- Categorías -->
+    <div class="categories-container">
+        <button *ngFor="let cat of categorias" mat-stroked-button
+            [color]="selectedCategory === cat.idCategoria ? 'primary' : ''" (click)="selectCategory(cat.idCategoria)">
+            {{cat.nombre}}
+        </button>
+    </div>
+
+    <!-- Productos -->
+    <div class="products-grid">
+        <mat-card *ngFor="let producto of productos" class="product-card">
+            <img mat-card-image [src]="producto.imagen" [alt]="producto.nombre" class="product-image">
+
+            <mat-card-content>
+                <h3 class="product-title">{{producto.nombre}}</h3>
+                <p class="product-description">{{producto.descripcion}}</p>
+                <p class="product-price">
+                    S/. {{producto.precio}}
+                </p>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+                <button mat-icon-button (click)="decrementQuantity(producto)" [disabled]="!producto.disponible">
+                    <mat-icon>remove</mat-icon>
+                </button>
+                <span class="quantity">{{getQuantity(producto)}}</span>
+                <button mat-icon-button (click)="incrementQuantity(producto)" [disabled]="!producto.disponible">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <button mat-raised-button color="primary" (click)="addToCart(producto)"
+                    [disabled]="!producto.disponible || !getQuantity(producto)">
+                    Agregar al carrito
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <!-- Carrito flotante -->
+    <button mat-fab color="primary" class="cart-button" [matBadge]="cartItemCount" matBadgePosition="above after"
+        [routerLink]="['/cart']">
+        <mat-icon>shopping_cart</mat-icon>
+    </button>
+</div>

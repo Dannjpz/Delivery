@@ -1,0 +1,25 @@
+<div class="blog-container">
+    <!-- Header con navegación -->
+    <mat-toolbar color="primary">
+        <span>Blog de Cocina</span>
+        <span class="spacer"></span>
+        <button mat-button [routerLink]="['/login']">
+            <mat-icon>login</mat-icon>
+            Iniciar Sesión
+        </button>
+    </mat-toolbar>
+
+    <!-- Contenido del blog -->
+    <div class="content-container">
+        <mat-card class="blog-post">
+            <mat-card-header>
+                <mat-card-title>Bienvenidos a nuestro Blog de Cocina</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Descubre nuestras deliciosas recetas y aprende más sobre gastronomía.</p>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Puedes agregar más contenido aquí -->
+    </div>
+</div>

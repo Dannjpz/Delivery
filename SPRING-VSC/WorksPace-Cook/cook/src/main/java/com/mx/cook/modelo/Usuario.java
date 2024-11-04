@@ -25,9 +25,7 @@ public class Usuario {
     private int idUsuario;
     @Column(unique = true)
     private String username;
-
     private String password;
-
     private String rol;
 
 }

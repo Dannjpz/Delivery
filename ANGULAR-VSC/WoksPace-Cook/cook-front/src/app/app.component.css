@@ -8,7 +8,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0,0,0,.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
 }
 
 .toolbar-spacer {
@@ -41,13 +41,13 @@ button mat-icon {
   margin-right: 4px;
 }
 
-/* Indicadores de conectividad */
-.online-indicator {
-  color: #4CAF50;
-  margin-right: 10px;
-}
+/* Responsive design */
+@media (max-width: 600px) {
+  .mat-toolbar button span {
+    display: none;
+  }
 
-.offline-indicator {
-  color: #f44336;
-  margin-right: 10px;
+  button mat-icon {
+    margin-right: 0;
+  }
 }

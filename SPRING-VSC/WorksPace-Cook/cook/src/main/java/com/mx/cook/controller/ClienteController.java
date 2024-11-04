@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @CrossOrigin
 
-public class ClienteWS {
+public class ClienteController {
 
     @Autowired
     ClienteService clienteService;
@@ -30,27 +30,27 @@ public class ClienteWS {
     @Autowired
     ClienteDao clienteDao;
 
-    @GetMapping("listar")
+    @GetMapping("listarCliente")
     public List<Cliente> listarCliente() {
         return clienteService.listar();
     }
 
-    @PostMapping("buscar")
+    @PostMapping("buscarCliente")
     public Cliente buscarCliente(@RequestBody Cliente cliente) {
         return clienteService.buscar(cliente);
     }
 
-    @PostMapping("guardar")
+    @PostMapping("guardarCliente")
     public void guardarCliente(@RequestBody Cliente cliente) {
         clienteService.guardar(cliente);
     }
 
-    @PostMapping("editar")
+    @PostMapping("editarCliente")
     public void editarCliente(@RequestBody Cliente cliente) {
         clienteService.editar(cliente);
     }
 
-    @PostMapping("eliminar")
+    @PostMapping("eliminarCliente")
     public void eliminarCliente(@RequestBody Cliente cliente) {
         clienteService.eliminar(cliente);
     }
