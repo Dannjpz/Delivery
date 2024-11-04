@@ -12,7 +12,9 @@ import { isPlatformBrowser } from '@angular/common';
 export class AuthService {
     private readonly baseUrl = 'http://localhost:8081/api/auth';
     private sessionCheckInterval: any;
+    private idleTimeout: any;
     private readonly isBrowser: boolean;
+    private readonly IDLE_TIME = 10 * 1000; // 5 minutos de inactividad (ajusta según necesites) 10s
 
     constructor(
         private readonly http: HttpClient,
@@ -23,6 +25,7 @@ export class AuthService {
         if (this.isBrowser) {
             this.initSessionCheck();
             this.setupWindowEvents();
+            this.setupIdleTimer();
         }
     }
 
@@ -47,6 +50,38 @@ export class AuthService {
                 this.checkSessionValidity();
             }
         });
+    }
+
+    private setupIdleTimer(): void {
+        if (!this.isBrowser) return;
+
+        // Lista de eventos que reinician el temporizador de inactividad
+        const events = [
+            'mousedown', 'mousemove', 'keypress',
+            'scroll', 'touchstart', 'click', 'keydown'
+        ];
+
+        // Función para reiniciar el temporizador
+        const resetIdleTimer = () => {
+            if (this.idleTimeout) {
+                clearTimeout(this.idleTimeout);
+            }
+            // Si el usuario está autenticado, iniciar nuevo temporizador
+            if (this.isAuthenticated()) {
+                this.idleTimeout = setTimeout(() => {
+                    console.log('Sesión cerrada por inactividad');
+                    this.logout();
+                }, this.IDLE_TIME);
+            }
+        };
+
+        // Agregar listeners para todos los eventos
+        events.forEach(event => {
+            document.addEventListener(event, resetIdleTimer);
+        });
+
+        // Iniciar el temporizador
+        resetIdleTimer();
     }
 
     private checkSessionValidity(): void {
@@ -74,12 +109,16 @@ export class AuthService {
                         this.storageService.setItem('token', response.token);
                         this.storageService.setItem('sessionStartTime', Date.now().toString());
                         this.initSessionCheck();
+                        this.setupIdleTimer(); // Reiniciar el temporizador de inactividad
                     }
                 })
             );
     }
 
     logout(): void {
+        if (this.idleTimeout) {
+            clearTimeout(this.idleTimeout);
+        }
         this.storageService.removeItem('token');
         this.storageService.removeItem('sessionStartTime');
         if (this.sessionCheckInterval) {
@@ -119,6 +158,9 @@ export class AuthService {
     destroySession(): void {
         if (this.sessionCheckInterval) {
             clearInterval(this.sessionCheckInterval);
+        }
+        if (this.idleTimeout) {
+            clearTimeout(this.idleTimeout);
         }
         this.logout();
     }
